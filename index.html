@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Parabéns</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: #020202;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial;
+  overflow: hidden;
+}
+
+/* 🌈 FUNDO RAVE */
+body.rave {
+  animation: raveBg 0.6s infinite;
+}
+
+@keyframes raveBg {
+  0% { background: #0f0f0f; }
+  25% { background: #ff004c; }
+  50% { background: #00ffcc; }
+  75% { background: #7d00ff; }
+  100% { background: #0f0f0f; }
+}
+
+/* CARTA */
+.carta {
+  width: 640px;
+  height: 440px;
+  background: #ffffff;
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+/* 💥 BATIDA */
+.carta.batida {
+  animation: batida 0.5s infinite;
+}
+
+@keyframes batida {
+  0% { transform: scale(1); box-shadow: 0 0 10px red; }
+  50% { transform: scale(1.07); box-shadow: 0 0 40px cyan; }
+  100% { transform: scale(1); box-shadow: 0 0 10px purple; }
+}
+
+/* TAMPA */
+.tampa {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #dbdbdb;
+  clip-path: polygon(0 0, 100% 0, 50% 50%);
+  transition: 0.6s;
+  border-bottom: 2px solid #000;
+}
+
+.carta.aberta .tampa {
+  transform: rotateX(180deg);
+}
+
+/* CONTEÚDO */
+.conteudo {
+  position: absolute;
+  width: 92%;
+  height: 92%;
+  background: white;
+  top: 4%;
+  left: 4%;
+  border-radius: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  text-align: center;
+  transform: scale(0.8);
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.carta.aberta .conteudo {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* 🐸 GIF RAVE */
+.gif {
+  width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  border-radius: 10px;
+  margin-top: 10px;
+  transition: 0.3s;
+}
+
+.gif.rave {
+  animation: vibrar 0.3s infinite;
+}
+
+@keyframes vibrar {
+  0% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.05) rotate(1deg); }
+  50% { transform: scale(1.1) rotate(0deg); }
+  75% { transform: scale(1.05) rotate(-1deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* BOTÃO */
+.fita {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  color: #08f700;
+  padding: 12px 25px;
+  font-size: 18px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  animation: pulsar 1s infinite;
+}
+
+@keyframes pulsar {
+  0% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.1); }
+  100% { transform: translateX(-50%) scale(1); }
+}
+
+/* CONFETE */
+.confete {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  top: -10px;
+  animation: cair linear forwards;
+}
+
+@keyframes cair {
+  to {
+    transform: translateY(100vh) rotate(360deg);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="carta" id="carta">
+  <div class="tampa"></div>
+
+  <div class="conteudo">
+    <h3>🥳🎉🎂 Feliz Aniversário 🎂🎉🥳</h3>
+
+    <img class="gif" src="caco.gif">
+
+    <p>
+      Feliz aniversário meu amigo, que seja cheio de sorrisos e gargalhadas, repleto de paz, amor e muita alegria. Parabéns por mais um ano de vida! 😎<br><br>
+      Agora virou rave 🎧🔥<br>
+      aguenta o baile 😂
+    </p>
+  </div>
+
+  <div class="fita" onclick="abrir(event)">
+      Abrir🔘
+  </div>
+</div>
+
+<script>
+function abrir(e) {
+  e.stopPropagation();
+
+  const carta = document.getElementById("carta");
+  carta.classList.add("aberta");
+
+  // 🎵 fade-in música
+  let musica = document.getElementById("musica");
+  musica.volume = 0;
+  musica.play();
+
+  let volume = 0;
+  let fade = setInterval(() => {
+    if (volume < 0.4) {
+      volume += 0.02;
+      musica.volume = volume;
+    } else {
+      clearInterval(fade);
+    }
+  }, 200);
+
+  // 🌈 ATIVAR RAVE
+  document.body.classList.add("rave");
+  document.getElementById("carta").classList.add("batida");
+  document.querySelector(".gif").classList.add("rave");
+
+  // esconder botão
+  document.querySelector(".fita").style.display = "none";
+
+  // 🎆 confete INSANO
+  for (let i = 0; i < 200; i++) {
+    let c = document.createElement("div");
+    c.classList.add("confete");
+    c.style.left = Math.random() * window.innerWidth + "px";
+    c.style.background = randomColor();
+    c.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    document.body.appendChild(c);
+
+    setTimeout(() => c.remove(), 4000);
+  }
+}
+
+function randomColor() {
+  const cores = ["#ff0", "#0ff", "#f0f", "#0f0", "#ff5733"];
+  return cores[Math.floor(Math.random() * cores.length)];
+}
+</script>
+
+<audio id="musica" src="musica.mp3" loop></audio>
+
+</body>
+</html>
