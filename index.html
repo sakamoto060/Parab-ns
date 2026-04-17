@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -31,9 +32,13 @@ body.rave {
 
 /* CARTA */
 .carta {
-  width: 90%;
-  max-width: 640px;
-  min-height: 400px;
+  width: 640px;
+  height: 440px;
+  background: #ffffff;
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
 }
 
 /* 💥 BATIDA */
@@ -142,32 +147,6 @@ body.rave {
     transform: translateY(100vh) rotate(360deg);
   }
 }
-
-/* RESPONSIVO */
-@media (max-width: 500px) {
-  .carta {
-    width: 95%;
-    padding: 5px;
-  }
-
-  .gif {
-    max-height: 150px;
-  }
-
-  h3 {
-    font-size: 18px;
-  }
-
-  p {
-    font-size: 14px;
-  }
-
-  .fita {
-    font-size: 16px;
-    padding: 10px 20px;
-    bottom: 20px;
-  }
-}
 </style>
 </head>
 
@@ -182,14 +161,14 @@ body.rave {
     <img class="gif" src="caco.gif">
 
     <p>
-      Feliz aniversário meu amigo, que seja cheio de sorrisos e gargalhadas, repleto de paz, amor e muita alegria. Parabéns por mais um ano de vida! 😎<br><br>
+      Feliz aniversário meu amigo 😎<br><br>
       Agora virou rave 🎧🔥<br>
       aguenta o baile 😂
     </p>
   </div>
 
   <div class="fita" onclick="abrir(event)">
-      Abrir🔘
+     🎁 Abrir
   </div>
 </div>
 
@@ -246,3 +225,4 @@ function randomColor() {
 
 </body>
 </html>
+```
